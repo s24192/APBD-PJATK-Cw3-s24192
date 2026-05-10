@@ -7,7 +7,7 @@ public class CreateRoomDto
     [Required, MaxLength(20)]
     public string? Name { get; set; }
     [Required, MaxLength(20)]
-    public int? BuildingCode { get; set; }
+    public string? BuildingCode { get; set; }
     [Required]
     public int? Floor { get; set; }
     [Required]
