@@ -31,6 +31,46 @@ public class Reservation
             StartTime = DateTime.Now,
             EndTime = new DateTime(2027, 11, 2),
             Status = "In progress"
+        },
+        new()
+        {
+            Id = 3,
+            RoomId = 2,
+            OrganizerName = "Test org",
+            Topic = "Test topic",
+            StartTime = DateTime.Now,
+            EndTime = new DateTime(2027, 10, 2),
+            Status = "In progress"
+        },
+        new()
+        {
+            Id = 4,
+            RoomId = 4,
+            OrganizerName = "Test org 2",
+            Topic = "Test topic 2",
+            StartTime = DateTime.Now,
+            EndTime = new DateTime(2027, 11, 2),
+            Status = "In progress"
+        },
+        new()
+        {
+            Id = 5,
+            RoomId = 5,
+            OrganizerName = "Test org",
+            Topic = "Test topic",
+            StartTime = DateTime.Now,
+            EndTime = new DateTime(2027, 10, 2),
+            Status = "In progress"
+        },
+        new()
+        {
+            Id = 6,
+            RoomId = 6,
+            OrganizerName = "Test org 2",
+            Topic = "Test topic 2",
+            StartTime = DateTime.Now,
+            EndTime = new DateTime(2027, 11, 2),
+            Status = "In progress"
         }
     ];
 }

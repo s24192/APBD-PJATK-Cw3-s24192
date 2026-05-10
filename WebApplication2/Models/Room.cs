@@ -42,6 +42,31 @@ public class Room
             Floor = 0,
             Capacity = 20,
             HasProjector = true
+        },
+        new ()
+        {
+        Id = 4,
+        Name = "cos",
+        BuildingCode = "A1",
+        Floor = 2,
+        Capacity = 30
+        },
+        new ()
+        {
+            Id = 5,
+            Name = "asd",
+            BuildingCode = "A1",
+            Floor = 3,
+            Capacity = 10
+        },
+        new ()
+        {
+            Id = 6,
+            Name = "zxc",
+            BuildingCode = "B2",
+            Floor = 0,
+            Capacity = 20,
+            HasProjector = true
         }
     ];
 }

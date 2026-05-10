@@ -81,14 +81,19 @@ public class RoomsController : ControllerBase
         {
             return NotFound($"Unable to  find a room with {id} id.");
         }
-        
+
+        if (dto.Name == null || dto.BuildingCode == null || dto.Capacity <= 0)
+        {
+            return BadRequest($"Invalid room name or bad building code.");
+        }
+
         room.Name = dto.Name!;
         room.BuildingCode = dto.BuildingCode!;
         room.Floor = (int)dto.Floor!;
         room.HasProjector = dto.HasProjector;
         room.IsActive = dto.IsActive;
         
-        return NoContent();
+        return Ok();
     }
 
     [HttpDelete("{id:int}")]
@@ -99,7 +104,12 @@ public class RoomsController : ControllerBase
         {
             return NotFound($"Unable to find a  room with {id} id.");
         }
-        
+
+        if (Reservation.reservations.Any(r => r.RoomId == id))
+        {
+            return BadRequest($"Room with {id} id is reserved.");
+        }
+
         Room.Rooms.Remove(room);
         
         return NoContent();
@@ -108,6 +118,10 @@ public class RoomsController : ControllerBase
     [HttpPost]
     public IActionResult Post([FromBody] CreateRoomDto dto)
     {
+        if (dto.Name == null || dto.BuildingCode == null || dto.Capacity <= 0)
+        {
+            return BadRequest($"Invalid room name or bad building code or invalid capacity.");
+        }
         var room = new Room
         {
             Id = Room.Rooms.Max(e => e.Id) + 1,

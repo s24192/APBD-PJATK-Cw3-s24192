@@ -63,6 +63,21 @@ public class ReservationsController : ControllerBase
     [HttpPost]
     public IActionResult Post([FromBody] CreateReservationDto dto)
     {
+        if (dto.OrganizerName == null || dto.Topic == null)
+        {
+            return BadRequest("The field OrganizerName and/or Topic are required.");
+        }
+
+        if (Room.Rooms.All(r => r.Id != dto.RoomId))
+        {
+                return BadRequest("There is no room with given id.");
+        }
+
+        if (!Room.Rooms.FirstOrDefault(r => r.Id == dto.RoomId)!.IsActive)
+        {
+            return BadRequest("Given room is marked as inactive.");
+        }
+
         var reservation = new Reservation
         {
             Id = Reservation.reservations.Max(r => r.Id) + 1,
@@ -77,6 +92,30 @@ public class ReservationsController : ControllerBase
         Reservation.reservations.Add(reservation);
         
         return Created($"api/Students/{reservation.Id}", reservation);
+    }
+    
+    [HttpPut("{id:int}")]
+    public IActionResult Update([FromRoute] int id, [FromBody] UpdateReservationDto dto)
+    {
+        var reservation = Reservation.reservations.FirstOrDefault(e => e.Id == id);
+        if (reservation is null)
+        {
+            return NotFound($"Unable to  find a reservation with {id} id.");
+        }
+
+        if (dto.OrganizerName == null || dto.Topic == null)
+        {
+            return BadRequest("The field OrganizerName and/or Topic are required.");
+        }
+
+        reservation.RoomId = (int)dto.RoomId!;
+        reservation.OrganizerName = dto.OrganizerName!;
+        reservation.Topic = dto.Topic!;
+        reservation.StartTime = dto.StartTime;
+        reservation.EndTime = dto.EndTime;
+        reservation.Status = dto.Status;
+        
+        return Ok();
     }
     
     [HttpDelete("{id:int}")]
