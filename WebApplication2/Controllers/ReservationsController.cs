@@ -108,6 +108,11 @@ public class ReservationsController : ControllerBase
             return BadRequest("The field OrganizerName and/or Topic are required.");
         }
 
+        if (Room.Rooms.All(r => r.Id != dto.RoomId))
+        {
+            return BadRequest($"There is no room with {dto.RoomId} id");
+        }
+
         reservation.RoomId = (int)dto.RoomId!;
         reservation.OrganizerName = dto.OrganizerName!;
         reservation.Topic = dto.Topic!;

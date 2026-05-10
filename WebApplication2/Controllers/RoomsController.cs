@@ -84,12 +84,13 @@ public class RoomsController : ControllerBase
 
         if (dto.Name == null || dto.BuildingCode == null || dto.Capacity <= 0)
         {
-            return BadRequest($"Invalid room name or bad building code.");
+            return BadRequest($"Invalid room name or bad building code or invalid capacity.");
         }
 
         room.Name = dto.Name!;
         room.BuildingCode = dto.BuildingCode!;
         room.Floor = (int)dto.Floor!;
+        room.Capacity =dto.Capacity;
         room.HasProjector = dto.HasProjector;
         room.IsActive = dto.IsActive;
         
@@ -128,7 +129,7 @@ public class RoomsController : ControllerBase
             Name = dto.Name!,
             BuildingCode = dto.BuildingCode!,
             Floor = (int)dto.Floor!,
-            Capacity = (int)dto.Capacity,
+            Capacity = dto.Capacity,
             HasProjector = dto.HasProjector,
             IsActive = dto.IsActive
         };
