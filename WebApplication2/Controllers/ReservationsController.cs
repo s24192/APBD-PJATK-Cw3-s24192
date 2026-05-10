@@ -70,12 +70,12 @@ public class ReservationsController : ControllerBase
 
         if (Room.Rooms.All(r => r.Id != dto.RoomId))
         {
-                return BadRequest("There is no room with given id.");
+                return BadRequest($"There is no room with {dto.RoomId} id");
         }
 
         if (!Room.Rooms.FirstOrDefault(r => r.Id == dto.RoomId)!.IsActive)
         {
-            return BadRequest("Given room is marked as inactive.");
+            return BadRequest($"The room with {dto.RoomId} id is marked as inactive.");
         }
 
         var reservation = new Reservation
