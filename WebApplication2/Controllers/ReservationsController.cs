@@ -78,4 +78,18 @@ public class ReservationsController : ControllerBase
         
         return Created($"api/Students/{reservation.Id}", reservation);
     }
+    
+    [HttpDelete("{id:int}")]
+    public IActionResult Delete([FromRoute] int id)
+    {
+        var reservation = Reservation.reservations.FirstOrDefault(e => e.Id == id);
+        if (reservation is null)
+        {
+            return NotFound($"Unable to find a reservation with {id} id.");
+        }
+        
+        Reservation.reservations.Remove(reservation);
+        
+        return NoContent();
+    }
 }
